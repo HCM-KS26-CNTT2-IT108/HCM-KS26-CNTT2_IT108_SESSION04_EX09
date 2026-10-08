@@ -1,0 +1,26 @@
+PHẦN 1: CÁC CÂU LỆNH THỰC THI (SỬ DỤNG BASH / LINUX / GIT BASH)
+Bước 1: Xác định vị trí hiện tại
+- Câu lệnh: pwd
+- Giải thích: Kiểm tra đường dẫn thư mục hiện tại để đảm bảo đang đứng đúng thư mục gốc chứa public trên server trước khi thao tác.
+Bước 2: Xác nhận sự cố
+- Câu lệnh: ls public
+- Giải thích: Liệt kê các file/thư mục bên trong public để xác nhận sự tồn tại của file chứa mật khẩu (db_password.txt) và file mã độc (hacker_log.bat).
+Bước 3: Xử lý bẫy & Di chuyển an toàn
+- Câu lệnh 1 (Tạo thư mục an toàn): mkdir secrets
+- Câu lệnh 2 (Di chuyển file mật khẩu): mv public/db_password.txt secrets/
+- Giải thích:
+  + Phải dùng lệnh "mkdir secrets" trước để tạo thư mục đích "secrets" ngang hàng với "public".
+  + Tránh bẫy dữ liệu: Nếu chưa tạo thư mục "secrets", lệnh "mv public/db_password.txt secrets" sẽ hiểu nhầm "secrets" là tên file mới và vô tình đổi tên file "db_password.txt" thành "secrets" thay vì chuyển nó vào thư mục!
+  + Sau khi thư mục "secrets" đã tồn tại, lệnh "mv" sẽ di chuyển an toàn file "db_password.txt" từ "public" vào trong "secrets/".
+Bước 4: Dọn dẹp mã độc
+- Câu lệnh:  rm public/hacker_log.bat
+- Giải thích: Xóa vĩnh viễn file mã độc "hacker_log.bat" ra khỏi thư mục "public" để bảo đảm an toàn dữ liệu và hệ thống.
+
+
+PHẦN 2: PHƯƠNG ÁN DỰ PHÒNG (SỬ DỤNG WINDOWS POWERSHELL / CMD)
+Nếu thao tác trên môi trường Windows PowerShell / CMD:
+- Bước 1: Get-Location  (hoặc cd)
+- Bước 2: Get-ChildItem public  (hoặc dir public)
+- Bước 3: New-Item -ItemType Directory -Name secrets  (hoặc mkdir secrets)
+          Move-Item public/db_password.txt secrets/  (hoặc move public\db_password.txt secrets\)
+- Bước 4: Remove-Item public/hacker_log.bat  (hoặc del public\hacker_log.bat)
